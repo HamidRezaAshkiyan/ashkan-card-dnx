@@ -6,8 +6,8 @@ on:
     types: [published]
 
 env:
-  PROJECT_FILE: src/Ardalis.Cli/Ardalis.Cli.csproj
-  TEST_PROJECT: tests/Ardalis.Cli.Tests/Ardalis.Cli.Tests.csproj
+  PROJECT_FILE: src/HamidRezaAshkiyan.Cli/HamidRezaAshkiyan.Cli.csproj
+  TEST_PROJECT: tests/HamidRezaAshkiyan.Cli.Tests/HamidRezaAshkiyan.Cli.Tests.csproj
   PACK_OUTPUT: artifacts/package/release
 
 jobs:

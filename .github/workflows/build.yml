@@ -1,4 +1,4 @@
-name: ardalis CLI Build and Test
+name: HamidRezaAshkiyan CLI Build and Test
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
     branches: [ main ]
 
 env:
-  PROJECT_FILE: src/Ardalis.Cli/Ardalis.Cli.csproj
+  PROJECT_FILE: src/HamidRezaAshkiyan.Cli/HamidRezaAshkiyan.Cli.csproj
 
 jobs:
   build:

@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/HamidRezaAshkiyan.Cli/HamidRezaAshkiyan.Cli.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/HamidRezaAshkiyan.Cli.Tests/HamidRezaAshkiyan.Cli.Tests.csproj" />
+  </Folder>
+  <Folder Name="/_sln/">
+    <File Path="README.md" />
+    <File Path="CONTRIBUTING.md" />
+    <File Path=".gitignore" />
+  </Folder>
+</Solution>

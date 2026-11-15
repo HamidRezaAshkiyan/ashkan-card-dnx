@@ -1,63 +1,36 @@
-# Contributing to ardalis-card-dnx
+# Contributing to ashkan-card-dnx
 
 ## For Maintainers
 
 ### Publishing a New Version
 
-This project uses GitHub Actions to automatically publish to NuGet.org when a new release is created.
+This project can be published to NuGet.org via GitHub Actions or manually.
 
 #### Steps to Publish
 
-1. **Update the version and release notes** in `ardalis.csproj`:
+1. **Update the version and release notes** in `src/HamidRezaAshkiyan.Cli/HamidRezaAshkiyan.Cli.csproj`:
 
    ```xml
-   <Version>1.3.0</Version>
-   <ReleaseNotes>Added 'repos' command - Display popular GitHub repositories.</ReleaseNotes>
+   <Version>1.0.0</Version>
+   <ReleaseNotes>Initial release for HamidReza Ashkiyan CLI business card.</ReleaseNotes>
    ```
 
-2. **Update the README.md** if needed to document new features.
+2. **Update `README.md`** if needed to document new features.
 
 3. **Commit and push** your changes:
 
    ```bash
    git add .
-   git commit -m "Bump version to 1.3.0"
+   git commit -m "Bump version to 1.0.0"
    git push origin main
    ```
 
-4. **Create a GitHub Release**:
-   - Go to [GitHub Releases](https://github.com/ardalis/ardalis-card-dnx/releases/new)
-   - Create a **new tag** (e.g., `v1.3.0`) directly in the release form
-   - Add release notes describing the changes
-   - Click **Publish release**
+4. **Manual Publishing**:
 
-5. **Monitor the workflow**:
-   - The GitHub Action will automatically trigger and publish to NuGet.org
-   - Check progress at [GitHub Actions](https://github.com/ardalis/ardalis-card-dnx/actions)
-
-**Note**: Creating the release will automatically create the tag, so you don't need to create and push tags separately. This prevents duplicate workflow runs.
-
-**Also Note**: You can use the `gh` CLI to create releases locally instead of via the github web app:
-
-```bash
-gh release create v1.21.0 --title "v1.21.0" --notes "Migrated all commands to TimeWarp.Nuru Endpoint DSL (class-based, attribute-driven). Replaced Handlers/ with Endpoints/ using [NuruRoute], IQuery/ICommand interfaces, and IQueryHandler/ICommandHandler. Added named HTTP clients for resilient API fetching with hardcoded fallbacks. Updated PostHog behavior to INuruBehavior. Thanks @StevenTCramer!" --repo ardalis/ardalis-card-dnx
-```
-
-#### Manual Publishing (Alternative)
-
-If you need to publish manually:
-
-```bash
-dotnet pack -c Release
-dotnet nuget push bin\Release\ardalis.1.0.3.nupkg --api-key YOUR_API_KEY --source https://api.nuget.org/v3/index.json
-```
-
-### GitHub Action Setup
-
-The automated workflow requires:
-
-- **GitHub Secret**: `NUGET_USER` set to your NuGet.org username
-- **NuGet.org Configuration**: Package configured to trust GitHub Actions OIDC for `ardalis/ardalis-card-dnx`
+   ```bash
+   dotnet pack src/HamidRezaAshkiyan.Cli/HamidRezaAshkiyan.Cli.csproj -c Release
+   dotnet nuget push src/HamidRezaAshkiyan.Cli/bin/Release/HamidRezaAshkiyan.1.0.0.nupkg --api-key YOUR_API_KEY --source https://api.nuget.org/v3/index.json
+   ```
 
 ## For Contributors
 
@@ -67,103 +40,4 @@ Contributions are welcome! Feel free to:
 - Suggest improvements
 - Submit pull requests
 
-This is a simple project, so just ensure your code works and follows the existing style.
-
-### Resource Files
-
-The tool uses external JSON files hosted on ardalis.com for dynamic content:
-
-#### Quotes (`quotes.json`)
-
-- **Location**: `https://ardalis.com/quotes.json`
-- **Format**: JSON array of strings
-- **Example**:
-
-  ```json
-  [
-    "New is glue.",
-    "Clean code is code that is easy to understand and easy to change.",
-    "The best code is no code at all."
-  ]
-  ```
-
-- **Fallback**: If the URL is unavailable, the tool uses a hardcoded fallback quote: "New is glue."
-- **Used by**: `QuoteHandler` via `QuoteHelper`
-
-#### Books (`books.json`)
-
-- **Location**: `https://ardalis.com/books.json`
-- **Format**: JSON array of book objects
-- **Schema**:
-
-  ```json
-  [
-    {
-      "title": "Book Title",
-      "link": "https://example.com/book",
-      "coverImage": "https://example.com/cover.png",
-      "description": "Book description text",
-      "publisher": "Publisher Name",
-      "publicationDate": "2023",
-      "isbn": "ISBN-13"
-    }
-  ]
-  ```
-
-- **Required Fields**: `title`, `link`
-- **Optional Fields**: `coverImage`, `description`, `publisher`, `publicationDate`, `isbn`
-- **Fallback**: If the URL is unavailable, the tool uses a hardcoded fallback with the ASP.NET Core architecture eBook
-- **Used by**: `BooksHandler`
-
-#### Tips (`tips.json`)
-
-- **Location**: `https://ardalis.com/tips.json`
-- **Format**: JSON array of tip objects
-- **Schema**:
-
-  ```json
-  [
-    {
-      "tipText": "Always include units in non-Timespan time variables/properties (e.g. `int timeoutMilliseconds` not `int timeout`).",
-      "referenceLink": "https://ardalis.com/use-timespan-or-specify-units-in-duration-properties-and-parameters"
-    },
-    {
-      "tipText": "Use guard clauses to improve code readability and reduce nesting.",
-      "referenceLink": "https://ardalis.com/guard-clauses"
-    }
-  ]
-  ```
-
-- **Required Fields**: `tipText`, `referenceLink`
-- **Fallback**: If the URL is unavailable, the tool uses a hardcoded fallback tip about including units in time variables
-- **Used by**: `TipHandler` via `TipHelper`
-
-#### Courses (`courses.json`)
-
-- **Location**: `https://ardalis.com/courses.json`
-- **Format**: JSON array of course objects
-- **Schema**:
-
-  ```json
-  [
-    {
-      "name": "SOLID Principles for C# Developers",
-      "link": "https://www.pluralsight.com/courses/csharp-solid-principles",
-      "platform": "Pluralsight",
-      "description": "Learn the SOLID principles of object-oriented design and how to apply them in C# to write maintainable, flexible code."
-    },
-    {
-      "name": "Clean Architecture",
-      "link": "https://dometrain.com/course/from-zero-to-hero-clean-architecture/",
-      "platform": "Dometrain",
-      "description": "Master Clean Architecture patterns and practices for building maintainable enterprise applications."
-    }
-  ]
-  ```
-
-- **Required Fields**: `name`, `link`
-- **Optional Fields**: `platform`, `description`
-- **Fallback**: If the URL is unavailable, the tool uses hardcoded fallback courses including SOLID Principles and Clean Architecture
-- **Used by**: `CoursesHandler`
-
-**Note**: To update the quotes, books, tips, or courses displayed by the tool, modify the JSON files hosted at the URLs above. The tool will automatically fetch the latest content on each run.
+Please ensure `dotnet test hamidrezaashkiyan.slnx` passes before submitting changes.
