@@ -7,7 +7,7 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>hamidrezaashkiyan</ToolCommandName>
     <PackageId>HamidRezaAshkiyan</PackageId>
-    <Description>CLI for HamidReza 'Ashkan' Ashkiyan's resources and information - Run with 'dnx hamidrezaashkiyan' to access GitHub, LinkedIn, Telegram, YouTube, business card, and more</Description>
+    <Description>CLI for HamidReza 'Ashkan' Ashkiyan's portfolio, blog, resume, projects, and profiles - Run with 'dnx hamidrezaashkiyan'</Description>
     <Authors>HamidReza Ashkiyan</Authors>
     <PackageProjectUrl>https://github.com/HamidRezaAshkiyan/ashkan-card-dnx</PackageProjectUrl>
     <RepositoryUrl>https://github.com/HamidRezaAshkiyan/ashkan-card-dnx</RepositoryUrl>
@@ -16,8 +16,8 @@
     <RollForward>Major</RollForward>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>1.0.0</Version>
-    <ReleaseNotes>Initial release for HamidReza Ashkiyan CLI business card.</ReleaseNotes>
+    <Version>1.1.0</Version>
+    <ReleaseNotes>Sync upstream v1.26-v1.27 (help command, -i REPL fix, Node 24 Actions), add website/resume/projects commands, and add Engineering Blog RSS to recent activity.</ReleaseNotes>
     <RootNamespace>HamidRezaAshkiyan.Cli</RootNamespace>
     <InterceptorsNamespaces>$(InterceptorsNamespaces);TimeWarp.Nuru.Generated</InterceptorsNamespaces>
   </PropertyGroup>

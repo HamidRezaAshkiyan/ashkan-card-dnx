@@ -3,15 +3,15 @@
 [![NuGet](https://img.shields.io/nuget/v/HamidRezaAshkiyan.svg)](https://www.nuget.org/packages/HamidRezaAshkiyan)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/HamidRezaAshkiyan.svg)](https://www.nuget.org/packages/HamidRezaAshkiyan)
 
-A .NET global tool that displays HamidReza 'Ashkan' Ashkiyan's personal business card in your terminal. 💠
+A .NET global tool that displays HamidReza 'Ashkan' Ashkiyan's personal business card, portfolio, projects, engineering blog, and social profiles in your terminal. 💠
 
 ## Overview
 
-A CLI tool built for the .NET ecosystem using the **`dnx`** command introduced in .NET 10! Run it instantly to access HamidReza 'Ashkan' Ashkiyan's profiles, repositories, NuGet packages, YouTube channel, and more—no installation required!
+A CLI tool built for the .NET ecosystem using the **`dnx`** command introduced in .NET 10! Run it instantly on any machine to access HamidReza 'Ashkan' Ashkiyan's business card, personal website, resume, featured projects, GitHub repositories, NuGet packages, blog posts, YouTube channel, and more—no installation required!
 
 ## Quick Start with dnx
 
-The easiest way to run this tool is with the new `dnx` command (similar to `npx` in Node.js):
+The easiest way to run this tool on any computer with the .NET 10 SDK is with `dnx` (similar to `npx` in Node.js):
 
 ```bash
 dnx hamidrezaashkiyan
@@ -19,13 +19,16 @@ dnx hamidrezaashkiyan
 
 That's it! The first time you run it, you'll be prompted to confirm the download. After that, it runs instantly without confirmation.
 
-### Available Commands
-
-Start interactive REPL mode (`ashkan>`):
+View help and available commands:
 
 ```bash
-dnx hamidrezaashkiyan
+dnx hamidrezaashkiyan help
+dnx hamidrezaashkiyan --help
 ```
+
+Running `dnx hamidrezaashkiyan` with no arguments starts [interactive mode](#interactive-mode).
+
+### Available Commands
 
 Display the business card (also aliased as `ashkan`):
 
@@ -34,49 +37,46 @@ dnx hamidrezaashkiyan card
 dnx hamidrezaashkiyan ashkan
 ```
 
-Open HamidReza's GitHub profile:
+Display featured engineering projects (also aliased as `work`):
 
 ```bash
-dnx hamidrezaashkiyan github
+dnx hamidrezaashkiyan projects
+dnx hamidrezaashkiyan projects -c backend
+dnx hamidrezaashkiyan projects -c systems
+dnx hamidrezaashkiyan projects -c desktop
+dnx hamidrezaashkiyan projects -c ai
 ```
 
-Open HamidReza's LinkedIn profile:
+Open HamidReza's personal website (aliases: `web`, `site`, `portfolio`):
 
 ```bash
-dnx hamidrezaashkiyan linkedin
+dnx hamidrezaashkiyan website
 ```
 
-Open HamidReza's Telegram profile:
+Open HamidReza's printable resume (alias: `cv`):
 
 ```bash
-dnx hamidrezaashkiyan telegram
+dnx hamidrezaashkiyan resume
 ```
 
-Open HamidReza's YouTube channel (`@thisistechsin`):
-
-```bash
-dnx hamidrezaashkiyan youtube
-```
-
-Open HamidReza's NuGet profile:
-
-```bash
-dnx hamidrezaashkiyan nuget
-```
-
-Open HamidReza's blog:
+Open HamidReza's engineering blog:
 
 ```bash
 dnx hamidrezaashkiyan blog
 ```
 
-Contact HamidReza (opens LinkedIn):
+Open HamidReza's GitHub, LinkedIn, Telegram, YouTube (`@thisistechsin`), NuGet, or Contact page:
 
 ```bash
+dnx hamidrezaashkiyan github
+dnx hamidrezaashkiyan linkedin
+dnx hamidrezaashkiyan telegram
+dnx hamidrezaashkiyan youtube
+dnx hamidrezaashkiyan nuget
 dnx hamidrezaashkiyan contact
 ```
 
-Display HamidReza's GitHub repositories:
+Display HamidReza's top GitHub repositories:
 
 ```bash
 dnx hamidrezaashkiyan repos
@@ -88,7 +88,7 @@ Display HamidReza's NuGet packages:
 dnx hamidrezaashkiyan packages
 ```
 
-Display recent activity from GitHub and YouTube:
+Display recent activity from Engineering Blog RSS, GitHub, and YouTube:
 
 ```bash
 dnx hamidrezaashkiyan recent
@@ -101,6 +101,36 @@ Display version and check for updates:
 dnx hamidrezaashkiyan version
 ```
 
+### Interactive Mode
+
+Run in interactive mode to execute multiple commands without re-running the tool:
+
+```bash
+dnx hamidrezaashkiyan
+# or
+dnx hamidrezaashkiyan -i
+```
+
+In interactive mode, simply type commands. Type `help` to list them:
+
+```text
+ashkan> help
+(lists available commands)
+
+ashkan> card
+(displays business card)
+
+ashkan> projects -c systems
+(displays Rust & systems projects)
+
+ashkan> recent
+(displays recent blog, GitHub, and YouTube activity)
+
+ashkan> exit
+```
+
+Exit by typing `exit`, `quit`, or `q`. Built-in REPL commands also include `clear`/`cls`, `history`, and `clear-history`.
+
 ## Installation as a Global Tool
 
 If you prefer to install the tool globally:
@@ -109,10 +139,16 @@ If you prefer to install the tool globally:
 dotnet tool install -g HamidRezaAshkiyan
 ```
 
-Then run:
+Then run from anywhere:
 
 ```bash
-hamidrezaashkiyan card
+hamidrezaashkiyan            # Start interactive mode
+hamidrezaashkiyan help       # List available commands
+hamidrezaashkiyan card       # Display business card
+hamidrezaashkiyan projects   # Display featured engineering projects
+hamidrezaashkiyan website    # Open personal website
+hamidrezaashkiyan blog       # Open engineering blog
+hamidrezaashkiyan resume     # Open printable resume
 ```
 
 To update:

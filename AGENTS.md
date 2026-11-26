@@ -25,10 +25,12 @@ AshkanCardDnx/
 │   ├── Helpers/UrlHelper.cs        # UTM query-string & browser-open helpers
 │   └── Endpoints/                  # Auto-discovered [NuruRoute] endpoints
 │       ├── CardEndpoint.cs         # `card` / alias `ashkan`
-│       ├── UrlEndpoints.cs         # `github`, `linkedin`, `telegram`, `youtube`, `nuget`, `blog`, `contact`
+│       ├── HelpEndpoint.cs         # `help` (lists commands, aliases & REPL built-ins)
+│       ├── ProjectsEndpoint.cs     # `projects [--category]` / alias `work`
+│       ├── UrlEndpoints.cs         # `website`, `resume`, `blog`, `contact`, `github`, `linkedin`, `telegram`, `youtube`, `nuget`
 │       ├── ReposEndpoint.cs        # `repos` (GitHub API)
 │       ├── PackagesEndpoint.cs     # `packages` (NuGet search API)
-│       ├── RecentEndpoint.cs       # `recent [--verbose]` (GitHub + YouTube RSS)
+│       ├── RecentEndpoint.cs       # `recent [--verbose]` (Blog RSS + GitHub + YouTube)
 │       └── VersionEndpoint.cs      # `version` (NuGet update check)
 └── tests/HamidRezaAshkiyan.Cli.Tests/
     ├── HamidRezaAshkiyan.Cli.Tests.csproj
@@ -73,5 +75,5 @@ dotnet nuget push src/HamidRezaAshkiyan.Cli/bin/Release/HamidRezaAshkiyan.<versi
 ## Conventions & Gotchas
 - **Source-generated interceptors:** `<InterceptorsNamespaces>` in `HamidRezaAshkiyan.Cli.csproj` is required for `TimeWarp.Nuru` route discovery (`DiscoverEndpoints()`); do not remove it or downgrade `TimeWarp.Nuru` carelessly.
 - **MTP + TUnit:** Because `global.json` sets `"runner": "Microsoft.Testing.Platform"` and the test project has `<OutputType>Exe</OutputType>`, test CLI flags follow MTP conventions rather than legacy VSTest flags.
-- **`testcoverage.cs` path mismatch:** Line 9 still references `tests/Ardalis.Cli.Tests` (leftover from template origin) and opens the report with Windows `cmd /c start`. Run coverage against `tests/HamidRezaAshkiyan.Cli.Tests` directly instead.
+- **Coverage script (`testcoverage.cs`):** Targets `tests/HamidRezaAshkiyan.Cli.Tests`, searches both `tests/` and `TestResults/` for `coverage.cobertura.xml`, and opens the HTML report cross-platform when `CI` is not `true`.
 - **Versioning:** Bump `<Version>` and `<ReleaseNotes>` in `src/HamidRezaAshkiyan.Cli/HamidRezaAshkiyan.Cli.csproj` before packing a release.

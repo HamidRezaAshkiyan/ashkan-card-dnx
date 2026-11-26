@@ -10,6 +10,7 @@ using System.Xml.Linq;
 
 using TimeWarp.Nuru;
 using TimeWarp.Terminal;
+using static HamidRezaAshkiyan.Cli.Urls;
 using static HamidRezaAshkiyan.Cli.Helpers.UrlHelper;
 
 namespace HamidRezaAshkiyan.Cli.Endpoints;
@@ -28,6 +29,7 @@ public sealed class RecentEndpoint : IQuery<Unit>
     {
         private static readonly List<(string Name, string Icon, string Url, Func<XDocument, List<RecentActivity>> Parser)> Sources =
         [
+            ("Blog", "📝", BlogFeed, ParseBlogRss),
             ("YouTube", "🎥", "https://www.youtube.com/feeds/videos.xml?user=thisistechsin", ParseYouTubeAtom),
             ("GitHub", "⚡", "https://github.com/hamidrezaashkiyan.atom", ParseGitHubAtom)
         ];
@@ -138,6 +140,21 @@ public sealed class RecentEndpoint : IQuery<Unit>
             return allActivities
                 .OrderByDescending(a => a.Date)
                 .Take(5)
+                .ToList();
+        }
+
+        private static List<RecentActivity> ParseBlogRss(XDocument doc)
+        {
+            return doc.Descendants("item")
+                .Take(5)
+                .Select(item => new RecentActivity
+                {
+                    Title = item.Element("title")?.Value ?? "Untitled",
+                    Url = item.Element("link")?.Value ?? "",
+                    Date = ParseDate(item.Element("pubDate")?.Value),
+                    Source = "Blog",
+                    Icon = "📝"
+                })
                 .ToList();
         }
 

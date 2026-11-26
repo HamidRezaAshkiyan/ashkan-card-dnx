@@ -35,7 +35,7 @@ public sealed class ReposEndpoint : IQuery<Unit>
             try
             {
                 HttpResponseMessage response = await client.GetAsync(
-                    "users/hamidrezaashkiyan/repos?sort=updated&per_page=10", ct);
+                    "users/HamidRezaAshkiyan/repos?sort=updated&per_page=100", ct);
                 response.EnsureSuccessStatusCode();
 
                 List<GitHubRepo>? fetched = await response.Content

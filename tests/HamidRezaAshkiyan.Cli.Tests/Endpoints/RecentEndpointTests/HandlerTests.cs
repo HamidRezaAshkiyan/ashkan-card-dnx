@@ -127,4 +127,28 @@ public class HandlerTests
 
         await handler.Handle(query, CancellationToken.None);
     }
+
+    [Test]
+    public async Task Handle_DoesNotThrow_WhenFeedReturnsValidBlogRss_Verbose()
+    {
+        const string rssXml = """
+            <?xml version="1.0" encoding="utf-8"?>
+            <rss version="2.0">
+              <channel>
+                <title>Hamid Reza Ashkiyan — Engineering Blog</title>
+                <item>
+                  <title>Migrating 15+ Production Services to Modern .NET</title>
+                  <link>https://hamidrezaashkiyan.github.io/blog/migrating-15-microservices-to-dotnet-8.html</link>
+                  <pubDate>Sun, 22 Nov 2026 00:00:00 +0000</pubDate>
+                </item>
+              </channel>
+            </rss>
+            """;
+
+        var factory = new FakeHttpClientFactory(rssXml);
+        var handler = new RecentEndpoint.Handler(factory);
+        var query = new RecentEndpoint { Verbose = true };
+
+        await handler.Handle(query, CancellationToken.None);
+    }
 }
