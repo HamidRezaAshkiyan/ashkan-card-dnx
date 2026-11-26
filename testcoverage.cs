@@ -6,10 +6,15 @@ bool isCI = Environment.GetEnvironmentVariable("CI") == "true";
 if (!isCI)
     Run("dotnet", "tool update dotnet-reportgenerator-globaltool --tool-path tools");
 
-Run("dotnet", "test --project tests/Ardalis.Cli.Tests --coverage --coverage-output coverage/coverage.cobertura.xml --coverage-output-format cobertura --coverage-settings coverage.settings");
+Run("dotnet", "test --project tests/HamidRezaAshkiyan.Cli.Tests --coverage --coverage-output coverage/coverage.cobertura.xml --coverage-output-format cobertura --coverage-settings coverage.settings");
 
-// MTP places coverage inside the test binary's TestResults folder
-var coverageFile = Directory.GetFiles("tests", "coverage.cobertura.xml", SearchOption.AllDirectories).FirstOrDefault();
+// Depending on the SDK version, MTP writes coverage either inside the test binary's
+// TestResults folder (under tests/) or in TestResults/ at the repo root. Pick the newest.
+var coverageFile = new[] { "tests", "TestResults" }
+    .Where(Directory.Exists)
+    .SelectMany(dir => Directory.GetFiles(dir, "coverage.cobertura.xml", SearchOption.AllDirectories))
+    .OrderByDescending(File.GetLastWriteTimeUtc)
+    .FirstOrDefault();
 if (coverageFile is null)
 {
     Console.Error.WriteLine("No coverage.cobertura.xml found.");
@@ -31,7 +36,12 @@ if (!isCI)
     if (File.Exists(reportPath))
     {
         Console.WriteLine($"\nReport generated: {reportPath}");
-        Run("cmd", $"/c start \"\" \"{reportPath}\"");
+        if (OperatingSystem.IsWindows())
+            Run("cmd", $"/c start \"\" \"{reportPath}\"");
+        else if (OperatingSystem.IsMacOS())
+            Run("open", $"\"{reportPath}\"");
+        else if (OperatingSystem.IsLinux())
+            Run("xdg-open", $"\"{reportPath}\"");
     }
 }
 
